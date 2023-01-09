@@ -20,12 +20,21 @@ class DropdownEditingController<T> extends ChangeNotifier {
   String toString() => '${describeIdentity(this)}($value)';
 }
 
+/// Create a dropdown form field
 class DropdownFormField<T> extends StatefulWidget {
   final bool autoFocus;
+
+  /// It will trigger on user search
   final bool Function(T item, String str)? filterFn;
+
+  /// Check item is selectd
   final bool Function(T? item1, T? item2)? selectedFn;
+
+  /// Return list of items what need to list for dropdown.
+  /// The list may be offline, or remote data from server.
   final Future<List<T>> Function(String str) findFn;
 
+  /// Build dropdown Items, it get called for all dropdown items
   ///  [item] = [dynamic value] List item to build dropdown Listtile
   /// [lasSelectedItem] = [null | dynamic value] last selected item, it gives user chance to highlight selected item
   /// [position] = [0,1,2...] Index of the list item
@@ -41,6 +50,7 @@ class DropdownFormField<T> extends StatefulWidget {
     Function() onTap,
   ) dropdownItemFn;
 
+  /// Build widget to display selected item inside Form Field
   final Widget Function(T? item) displayItemFn;
 
   final InputDecoration? decoration;
@@ -50,10 +60,19 @@ class DropdownFormField<T> extends StatefulWidget {
   final void Function(T?)? onSaved;
   final String? Function(T?)? validator;
 
+  /// height of the dropdown overlay, Default: 240
   final double? dropdownHeight;
+
+  /// Style the search box text
   final TextStyle? searchTextStyle;
+
+  /// Message to disloay if the search dows not match with any item, Default : "No matching found!"
   final String emptyText;
+
+  /// Give action text if you want handle the empty search.
   final String emptyActionText;
+
+  /// this functon triggers on click of emptyAction button
   final Future<void> Function()? onEmptyActionPressed;
 
   DropdownFormField({
