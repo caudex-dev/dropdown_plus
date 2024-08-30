@@ -73,7 +73,7 @@ class DropdownFormField<T> extends StatefulWidget {
   final String emptyActionText;
 
   /// this functon triggers on click of emptyAction button
-  final Future<void> Function()? onEmptyActionPressed;
+  final Future<void> Function(String value)? onEmptyActionPressed;
 
   DropdownFormField({
     Key? key,
@@ -284,8 +284,9 @@ class DropdownFormFieldState<T> extends State<DropdownFormField<T>>
                                       if (widget.onEmptyActionPressed != null)
                                         TextButton(
                                           onPressed: () async {
-                                            await widget
-                                                .onEmptyActionPressed!();
+                                            await widget.onEmptyActionPressed!(
+                                                _searchTextController
+                                                    .value.text);
                                             _search(_searchTextController
                                                 .value.text);
                                           },
